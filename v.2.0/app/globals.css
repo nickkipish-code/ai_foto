@@ -5,28 +5,28 @@
 /* Import Playfair Display font */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
 
-/* Premium Dark Theme (only theme) */
+/* Light Minimal Theme - like website template */
 :root {
   /* Background colors */
-  --bg-primary: #0C0C0D;
-  --bg-secondary: #121214;
-  --bg-tertiary: #1A1A1C;
-  
-  /* Gold accents */
-  --accent-gold: #D4AF37;
-  --accent-gold-light: #E5C158;
-  --accent-gold-dark: #B89D2F;
-  
+  --bg-primary: #F5F5F5;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #E8E8E8;
+
+  /* Gray accents */
+  --accent-dark: #4A4A4A;
+  --accent-gray: #6B6B6B;
+  --accent-light-gray: #9E9E9E;
+
   /* Text colors */
-  --text-primary: #FFFFFF;
-  --text-secondary: #BEBEBE;
-  --text-muted: #7A7A7A;
-  
+  --text-primary: #2C2C2C;
+  --text-secondary: #5A5A5A;
+  --text-muted: #8A8A8A;
+
   /* Borders */
-  --border-primary: #1F1F22;
-  --border-gold: #D4AF37;
-  --border-hover: #2A2A2D;
-  
+  --border-primary: #D0D0D0;
+  --border-dark: #4A4A4A;
+  --border-hover: #8A8A8A;
+
   /* States */
   --success: #4CAF50;
   --error: #EF4444;
@@ -34,31 +34,27 @@
 }
 
 body {
-  background: linear-gradient(180deg, #0C0C0D 0%, #121214 100%);
-  @apply text-white;
+  background: var(--bg-primary);
+  @apply text-[#2C2C2C];
   @apply min-h-screen;
   font-family: 'Inter', sans-serif;
 }
 
-/* Premium glassmorphism */
+/* Clean card style */
 .glass {
-  background: rgba(18, 18, 20, 0.6);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-primary);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Premium gradient text with Playfair Display */
+/* Simple dark text with Playfair Display */
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
   font-family: 'Playfair Display', serif;
   font-weight: 700;
 }
 
-/* Premium Animations */
+/* Simple Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -70,72 +66,55 @@ body {
   }
 }
 
-@keyframes goldGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out;
 }
 
-/* Premium Gold Button */
+/* Template Style Button - rounded gray */
 .gold-button {
-  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
-  color: #0C0C0D;
+  background: var(--accent-dark);
+  color: #FFFFFF;
   font-weight: 600;
-  border-radius: 10px;
-  padding: 14px 32px;
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 24px;
+  padding: 12px 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  border: none;
 }
 
 .gold-button:hover {
-  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.5);
-  transform: translateY(-2px);
+  background: var(--accent-gray);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
 }
 
-/* Premium drag & drop */
+/* Simple drag & drop */
 .drag-over {
-  border-color: var(--accent-gold);
-  background: rgba(212, 175, 55, 0.1);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  border-color: var(--accent-dark);
+  background: rgba(74, 74, 74, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Premium loader */
+/* Simple loader */
 .loader {
   @apply inline-block w-8 h-8 border-4 rounded-full animate-spin;
-  border-color: var(--accent-gold);
+  border-color: var(--accent-gray);
   border-top-color: transparent;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
-/* Premium cards */
+/* Clean template-style cards */
 .premium-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--accent-gold);
-  border-radius: 16px;
+  border: 2px solid var(--border-primary);
+  border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
 }
 
 .premium-card:hover {
-  border-color: var(--accent-gold-light);
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+  border-color: var(--accent-gray);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
 }
 

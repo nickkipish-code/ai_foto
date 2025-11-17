@@ -18,22 +18,22 @@ export default function Header() {
   ]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-[#D4AF37]/20">
+    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-[#D0D0D0]">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/">
-            <motion.div 
+            <motion.div
               className="flex items-center space-x-3 cursor-pointer"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-[#D4AF37] to-[#B89D2F] rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.5)]">
-                <span className="text-[#0C0C0D] font-black text-xl">AI</span>
+              <div className="w-10 h-10 bg-[#4A4A4A] rounded-full flex items-center justify-center border-2 border-[#D0D0D0]">
+                <span className="text-white font-black text-sm">AI</span>
               </div>
               <div>
-                <span className="text-lg font-bold gradient-text leading-none block" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <span className="text-lg font-bold text-[#2C2C2C] leading-none block" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Примірочна AI
                 </span>
               </div>
@@ -46,7 +46,7 @@ export default function Header() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-[#BEBEBE] hover:text-[#D4AF37] transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-[#D4AF37] after:to-[#E5C158] hover:after:w-full after:transition-all after:duration-300"
+                className="text-[#5A5A5A] hover:text-[#2C2C2C] transition-colors font-medium"
               >
                 {item.label}
               </a>
@@ -54,7 +54,7 @@ export default function Header() {
             
             {/* Auth Section */}
             {status === 'loading' ? (
-              <div className="w-8 h-8 rounded-full bg-[#1A1A1C] animate-pulse" />
+              <div className="w-8 h-8 rounded-full bg-[#E8E8E8] animate-pulse" />
             ) : session ? (
               <div className="relative">
                 <button
@@ -67,11 +67,11 @@ export default function Header() {
                       alt={session.user.name || 'User'}
                       width={32}
                       height={32}
-                      className="rounded-full border-2 border-[#D4AF37]"
+                      className="rounded-full border-2 border-[#D0D0D0]"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B89D2F] flex items-center justify-center">
-                      <User className="w-4 h-4 text-[#0C0C0D]" />
+                    <div className="w-8 h-8 rounded-full bg-[#4A4A4A] flex items-center justify-center">
+                      <User className="w-4 h-4 text-white" />
                     </div>
                   )}
                 </button>
@@ -82,15 +82,15 @@ export default function Header() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="absolute right-0 mt-2 w-48 glass rounded-lg border border-[#D4AF37]/20 overflow-hidden"
+                      className="absolute right-0 mt-2 w-48 bg-white rounded-lg border-2 border-[#D0D0D0] overflow-hidden shadow-lg"
                     >
-                      <div className="p-3 border-b border-[#D4AF37]/20">
-                        <p className="text-sm font-semibold text-white truncate">{session.user?.name}</p>
-                        <p className="text-xs text-[#BEBEBE] truncate">{session.user?.email}</p>
+                      <div className="p-3 border-b border-[#D0D0D0] bg-[#F5F5F5]">
+                        <p className="text-sm font-semibold text-[#2C2C2C] truncate">{session.user?.name}</p>
+                        <p className="text-xs text-[#5A5A5A] truncate">{session.user?.email}</p>
                       </div>
                       <Link
                         href="/profile"
-                        className="block px-3 py-2 text-sm text-[#BEBEBE] hover:text-[#D4AF37] hover:bg-[#1A1A1C] transition-colors"
+                        className="block px-3 py-2 text-sm text-[#5A5A5A] hover:text-[#2C2C2C] hover:bg-[#F5F5F5] transition-colors"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         <User className="w-4 h-4 inline mr-2" />
@@ -101,7 +101,7 @@ export default function Header() {
                           setIsUserMenuOpen(false)
                           signOut()
                         }}
-                        className="w-full text-left px-3 py-2 text-sm text-[#BEBEBE] hover:text-red-400 hover:bg-[#1A1A1C] transition-colors"
+                        className="w-full text-left px-3 py-2 text-sm text-[#5A5A5A] hover:text-red-500 hover:bg-[#F5F5F5] transition-colors"
                       >
                         <LogOut className="w-4 h-4 inline mr-2" />
                         Вийти
@@ -113,7 +113,7 @@ export default function Header() {
             ) : (
               <button
                 onClick={() => signIn('google')}
-                className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#B89D2F] text-[#0C0C0D] font-semibold hover:shadow-lg hover:shadow-[#D4AF37]/50 transition-all"
+                className="px-6 py-2 rounded-full bg-[#4A4A4A] text-white font-semibold hover:bg-[#6B6B6B] transition-all shadow-md hover:shadow-lg"
               >
                 Увійти
               </button>
@@ -122,7 +122,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-[#2C2C2C]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -136,24 +136,24 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-4 space-y-2"
+              className="md:hidden mt-4 space-y-2 border-t border-[#D0D0D0] pt-4"
             >
               {menuItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="block py-2 text-[#BEBEBE] hover:text-[#D4AF37] transition-colors"
+                  className="block py-2 text-[#5A5A5A] hover:text-[#2C2C2C] transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              
+
               {session ? (
                 <>
                   <Link
                     href="/profile"
-                    className="block py-2 text-[#BEBEBE] hover:text-[#D4AF37] transition-colors"
+                    className="block py-2 text-[#5A5A5A] hover:text-[#2C2C2C] transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <User className="w-4 h-4 inline mr-2" />
@@ -164,7 +164,7 @@ export default function Header() {
                       setIsMenuOpen(false)
                       signOut()
                     }}
-                    className="w-full text-left py-2 text-[#BEBEBE] hover:text-red-400 transition-colors"
+                    className="w-full text-left py-2 text-[#5A5A5A] hover:text-red-500 transition-colors"
                   >
                     <LogOut className="w-4 h-4 inline mr-2" />
                     Вийти
@@ -176,7 +176,7 @@ export default function Header() {
                     setIsMenuOpen(false)
                     signIn('google')
                   }}
-                  className="w-full text-left py-2 text-[#D4AF37] font-semibold"
+                  className="w-full text-left py-2 text-[#4A4A4A] font-semibold"
                 >
                   Увійти
                 </button>

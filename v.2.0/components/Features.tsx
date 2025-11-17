@@ -29,25 +29,25 @@ export default function Features() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section id="features" className="py-20 px-4 relative">
+    <section id="features" className="py-20 px-4 relative bg-white">
       <div className="container mx-auto max-w-6xl">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-4 gradient-text"
+          className="text-4xl md:text-5xl font-bold text-center mb-4 text-[#2C2C2C]"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           Можливості
         </motion.h2>
-        
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-center text-[#BEBEBE] mb-16 max-w-2xl mx-auto"
+          className="text-center text-[#5A5A5A] mb-16 max-w-2xl mx-auto"
         >
           Сучасна технологія віртуальної примірки з використанням штучного інтелекту
         </motion.p>
@@ -67,28 +67,28 @@ export default function Features() {
                 onHoverEnd={() => setHoveredIndex(null)}
                 className="premium-card group"
               >
-                <motion.div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br from-[#D4AF37] to-[#B89D2F]"
-                  animate={isHovered ? {
-                    scale: [1, 1.05, 1],
-                    rotate: [0, 5, -5, 0],
-                  } : {}}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Icon className="w-8 h-8 text-[#0C0C0D]" />
-                </motion.div>
-                
-                <h3 className="text-2xl font-semibold mb-3 text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  {feature.title}
-                </h3>
-                
-                <p className="text-[#BEBEBE] mb-3 leading-relaxed">
-                  {feature.description}
-                </p>
-                
-                <p className="text-[#D4AF37] text-sm font-semibold">
-                  {feature.hint}
-                </p>
+              <motion.div
+                className="w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-[#4A4A4A] border-2 border-[#D0D0D0]"
+                animate={isHovered ? {
+                  scale: [1, 1.05, 1],
+                  rotate: [0, 5, -5, 0],
+                } : {}}
+                transition={{ duration: 0.5 }}
+              >
+                <Icon className="w-8 h-8 text-white" />
+              </motion.div>
+
+              <h3 className="text-2xl font-semibold mb-3 text-[#2C2C2C]" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {feature.title}
+              </h3>
+
+              <p className="text-[#5A5A5A] mb-3 leading-relaxed">
+                {feature.description}
+              </p>
+
+              <p className="text-[#4A4A4A] text-sm font-semibold">
+                {feature.hint}
+              </p>
               </motion.div>
             )
           })}

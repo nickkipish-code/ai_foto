@@ -43,7 +43,7 @@ function MarqueeRow({ direction = 'left', speed = 30, delay = 0 }: MarqueeRowPro
         {duplicatedPhrases.map((phrase, index) => (
           <span
             key={index}
-            className="inline-block mx-8 text-4xl md:text-6xl font-bold text-[#D4AF37] opacity-5"
+            className="inline-block mx-8 text-4xl md:text-6xl font-bold text-[#D0D0D0] opacity-30"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {phrase}
@@ -63,9 +63,9 @@ export default function MarqueeText() {
       <MarqueeRow direction="right" speed={48} delay={0} />
       <MarqueeRow direction="left" speed={52} delay={0} />
       
-      {/* Strong gradient overlays for fade effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0C0C0D] via-[#0C0C0D]/80 to-[#0C0C0D]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0C0C0D] via-transparent to-[#0C0C0D]" />
+      {/* Light gradient overlays for fade effect */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#F5F5F5] via-[#F5F5F5]/80 to-[#F5F5F5]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-transparent to-[#F5F5F5]" />
     </div>
   )
 }
