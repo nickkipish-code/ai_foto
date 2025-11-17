@@ -154,3 +154,25 @@ body.theme-neon .loader {
   box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
 }
 
+/* Анимированные gradient кнопки */
+.bg-size-200 {
+  background-size: 200% 100%;
+}
+
+.bg-pos-0 {
+  background-position: 0% 0%;
+}
+
+.bg-pos-100 {
+  background-position: 100% 0%;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+

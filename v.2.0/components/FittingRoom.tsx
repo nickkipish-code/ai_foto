@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { ArrowLeft, Upload, X, Image as ImageIcon, ImageOff, Link as LinkIcon } from 'lucide-react'
+import { ArrowLeft, Upload, X, Image as ImageIcon, ImageOff, Link as LinkIcon, Camera, Shirt, Sparkles } from 'lucide-react'
 import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 import ImageCanvas from './ImageCanvas'
@@ -324,7 +324,10 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="glass rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">Фото человека</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <Camera className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+              <h3 className="text-lg font-semibold">Фото человека</h3>
+            </div>
             <div
               onDrop={(e) => handleDrop(e, 'person')}
               onDragOver={(e) => e.preventDefault()}
@@ -349,7 +352,7 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                       personFileRef.current = null
                       if (personInputRef.current) personInputRef.current.value = ''
                     }}
-                    className="absolute top-2 right-2 bg-red-500 rounded-full p-1 hover:bg-red-600"
+                    className="absolute top-2 right-2 bg-red-500 rounded-full p-1 hover:bg-red-600 transition-colors"
                   >
                     <X className="w-4 h-4 text-white" />
                   </button>
@@ -357,7 +360,8 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
               ) : (
                 <div>
                   <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-400">Нажмите или перетащите фото</p>
+                  <p className="text-gray-400 font-medium mb-1">Нажмите или перетащите фото</p>
+                  <p className="text-gray-500 text-xs">Загрузите фото в полный рост</p>
                 </div>
               )}
               <input
@@ -371,15 +375,24 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
           </div>
 
           <div className="glass rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">
-              {mode === 'background' 
-                ? 'Описание фона' 
-                : mode === 'text' 
-                ? 'Описание одежды' 
-                : mode === 'url'
-                ? 'Ссылка на товар'
-                : 'Фото одежды'}
-            </h3>
+            <div className="flex items-center gap-2 mb-4">
+              {mode === 'background' ? (
+                <ImageOff className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+              ) : mode === 'url' ? (
+                <LinkIcon className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+              ) : (
+                <Shirt className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+              )}
+              <h3 className="text-lg font-semibold">
+                {mode === 'background' 
+                  ? 'Описание фона' 
+                  : mode === 'text' 
+                  ? 'Описание одежды' 
+                  : mode === 'url'
+                  ? 'Ссылка на товар'
+                  : 'Фото одежды'}
+              </h3>
+            </div>
             {mode === 'url' ? (
               <div className="space-y-4">
                 <div>
@@ -449,16 +462,16 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
             ) : mode === 'text' ? (
-              <textarea
-                value={clothingDescription}
-                onChange={(e) => setClothingDescription(e.target.value)}
-                placeholder="Например: элегантное красное платье до колен"
-                className={`w-full h-48 bg-black/30 border rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none resize-none ${
-                  theme === 'neon'
-                    ? 'border-pink-500/30 focus:border-pink-500 focus:shadow-[0_0_10px_rgba(236,72,153,0.3)]'
-                    : 'border-gray-600 focus:border-purple-500'
-                }`}
-              />
+                  <textarea
+                    value={clothingDescription}
+                    onChange={(e) => setClothingDescription(e.target.value)}
+                    placeholder="Например: чёрная футболка oversize, синие джинсы скинни, красное платье до колен..."
+                    className={`w-full h-48 bg-black/30 border rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none resize-none ${
+                      theme === 'neon'
+                        ? 'border-pink-500/30 focus:border-pink-500 focus:shadow-[0_0_10px_rgba(236,72,153,0.3)]'
+                        : 'border-gray-600 focus:border-purple-500'
+                    }`}
+                  />
             ) : (
               <div
                 onDrop={(e) => handleDrop(e, 'clothing')}
@@ -492,7 +505,8 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                 ) : (
                   <div>
                     <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-400">Нажмите или перетащите фото</p>
+                    <p className="text-gray-400 font-medium mb-1">Нажмите или перетащите фото</p>
+                    <p className="text-gray-500 text-xs">Загрузите фото одежды на белом фоне</p>
                   </div>
                 )}
                 <input
@@ -507,7 +521,10 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
           </div>
 
           <div className="glass rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">Результат</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+              <h3 className="text-lg font-semibold">Результат</h3>
+            </div>
             <div className="h-64 md:h-auto">
               <ImageCanvas imageUrl={resultImage} loading={loading} />
             </div>

@@ -166,13 +166,76 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
   }
 
   if (loading) {
+    const [loadingStep, setLoadingStep] = useState(0)
+    const steps = [
+      '✨ Генерируем ваш образ...',
+      '🤖 AI подбирает освещение...',
+      '👗 Создаём примерку...',
+      '🎨 Финальная обработка...'
+    ]
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setLoadingStep(prev => (prev + 1) % steps.length)
+      }, 2000)
+      return () => clearInterval(interval)
+    }, [])
+
     return (
-      <div className="w-full h-full flex items-center justify-center glass rounded-lg">
-        <div className="text-center">
-          <Loader2 className={`w-12 h-12 animate-spin mx-auto mb-4 ${
-            theme === 'neon' ? 'text-pink-500' : 'text-purple-500'
-          }`} />
-          <p className="text-gray-400">Создаём образ...</p>
+      <div className={`w-full h-full flex items-center justify-center glass rounded-lg border-2 ${
+        theme === 'neon' 
+          ? 'border-pink-500/50 bg-gradient-to-br from-pink-500/10 to-purple-500/10' 
+          : 'border-purple-500/50 bg-gradient-to-br from-purple-500/10 to-pink-500/10'
+      }`}>
+        <div className="text-center p-8">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            <div className={`w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center relative ${
+              theme === 'neon'
+                ? 'bg-gradient-to-br from-pink-500/30 to-purple-500/30 shadow-[0_0_50px_rgba(236,72,153,0.5)]'
+                : 'bg-gradient-to-br from-purple-500/30 to-pink-500/30 shadow-2xl'
+            }`}>
+              <Loader2 className={`w-12 h-12 animate-spin ${theme === 'neon' ? 'text-pink-300' : 'text-purple-300'}`} />
+              
+              <motion.div
+                className="absolute inset-0 rounded-full border-4 border-transparent"
+                style={{
+                  borderTopColor: theme === 'neon' ? '#ec4899' : '#a855f7',
+                  borderRightColor: theme === 'neon' ? '#a855f7' : '#ec4899',
+                }}
+                animate={{
+                  rotate: [0, -360],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'linear',
+                }}
+              />
+            </div>
+          </motion.div>
+          
+          <motion.p
+            key={loadingStep}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className={`text-lg font-semibold mb-2 ${theme === 'neon' ? 'text-pink-300' : 'text-purple-300'}`}
+          >
+            {steps[loadingStep]}
+          </motion.p>
+          <p className="text-gray-400 text-sm">
+            Это может занять до 30 секунд
+          </p>
         </div>
       </div>
     )
@@ -180,8 +243,38 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
 
   if (!imageUrl) {
     return (
-      <div className="w-full h-full flex items-center justify-center glass rounded-lg">
-        <p className="text-gray-400">Результат появится здесь</p>
+      <div className={`w-full h-full flex items-center justify-center glass rounded-lg border-2 border-dashed ${
+        theme === 'neon' 
+          ? 'border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-purple-500/5' 
+          : 'border-purple-500/30 bg-gradient-to-br from-purple-500/5 to-pink-500/5'
+      }`}>
+        <div className="text-center p-8">
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatType: 'reverse' as const,
+            }}
+          >
+            <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center ${
+              theme === 'neon'
+                ? 'bg-gradient-to-br from-pink-500/20 to-purple-500/20 shadow-[0_0_30px_rgba(236,72,153,0.3)]'
+                : 'bg-gradient-to-br from-purple-500/20 to-pink-500/20'
+            }`}>
+              <Loader2 className={`w-10 h-10 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+            </div>
+          </motion.div>
+          <p className={`text-lg font-semibold mb-2 ${theme === 'neon' ? 'text-pink-300' : 'text-gray-200'}`}>
+            ✨ Ваш примерочный результат
+          </p>
+          <p className="text-gray-400 text-sm">
+            появится здесь после генерации
+          </p>
+        </div>
       </div>
     )
   }

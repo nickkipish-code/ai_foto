@@ -20,17 +20,19 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.div 
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className={`w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center ${theme === 'neon' ? 'neon-glow' : ''}`}>
-              <span className="text-white font-bold text-xl">V</span>
+            <div className={`w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center ${theme === 'neon' ? 'shadow-[0_0_20px_rgba(236,72,153,0.5)]' : 'shadow-lg shadow-purple-500/30'}`}>
+              <span className="text-white font-black text-xl">AI</span>
             </div>
-            <span className={`text-xl font-bold gradient-text ${theme === 'neon' ? 'font-oxanium tracking-wider' : ''}`}>
-              Virtual Fitting Room v2.0
-            </span>
+            <div>
+              <span className={`text-lg font-bold gradient-text leading-none block ${theme === 'neon' ? 'font-oxanium tracking-wide' : ''}`}>
+                AI Примерочная
+              </span>
+            </div>
           </motion.div>
 
           {/* Desktop Navigation */}
