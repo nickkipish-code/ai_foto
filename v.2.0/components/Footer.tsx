@@ -56,13 +56,51 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t-2 border-[#D0D0D0] text-center">
-          <p className="text-[#8A8A8A] text-sm">
-            © {new Date().getFullYear()} Примірочна AI. Всі права захищено.
-          </p>
-          <p className="text-[#8A8A8A] text-xs mt-2">
-            Розроблено з ❤️ в Україні
-          </p>
+        {/* Social Media & Share */}
+        <div className="pt-8 border-t-2 border-[#D0D0D0]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/logo.svg"
+                alt="Примірочна AI"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+              <div className="flex gap-3">
+                <a href="#" className="w-10 h-10 rounded-full bg-[#D0D0D0] hover:bg-[#4A4A4A] flex items-center justify-center transition-colors">
+                  <span className="text-white text-xs font-bold">f</span>
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-[#D0D0D0] hover:bg-[#4A4A4A] flex items-center justify-center transition-colors">
+                  <span className="text-white text-xs font-bold">t</span>
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-[#D0D0D0] hover:bg-[#4A4A4A] flex items-center justify-center transition-colors">
+                  <span className="text-white text-xs font-bold">in</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <span className="text-[#5A5A5A] text-sm">Share</span>
+              <button className="px-6 py-2 rounded-full bg-[#4A4A4A] text-white text-sm font-semibold hover:bg-[#6B6B6B] transition-colors">
+                xxx
+              </button>
+            </div>
+
+            <div className="flex gap-4 text-sm text-[#5A5A5A]">
+              <a href="#" className="hover:text-[#2C2C2C]">Imprint</a>
+              <a href="#" className="hover:text-[#2C2C2C]">Privacy</a>
+              <a href="#" className="hover:text-[#2C2C2C]">T&Cs</a>
+              <a href="#" className="hover:text-[#2C2C2C]">Contact</a>
+            </div>
+          </div>
+
+          <div className="text-center pt-6">
+            <p className="text-[#8A8A8A] text-sm mb-2">Copyright</p>
+            <p className="text-[#8A8A8A] text-xs">
+              © {new Date().getFullYear()} Примірочна AI. Всі права захищено.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

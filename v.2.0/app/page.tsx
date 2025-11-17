@@ -3,8 +3,15 @@
 import { useState } from 'react'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import Features from '@/components/Features'
-import WebsiteElements from '@/components/WebsiteElements'
+import MainImage from '@/components/MainImage'
+import EmotionalIntro from '@/components/EmotionalIntro'
+import AboutYou from '@/components/AboutYou'
+import ProductsSlider from '@/components/ProductsSlider'
+import BannerCTA from '@/components/BannerCTA'
+import BlogPosts from '@/components/BlogPosts'
+import Testimonials from '@/components/Testimonials'
+import ContactForm from '@/components/ContactForm'
+import AskForSale from '@/components/AskForSale'
 import FittingRoom from '@/components/FittingRoom'
 import Footer from '@/components/Footer'
 
@@ -19,8 +26,15 @@ export default function Home() {
       ) : (
         <>
           <Hero onStartClick={() => setShowFittingRoom(true)} />
-          <Features />
-          <WebsiteElements />
+          <MainImage />
+          <EmotionalIntro />
+          <AboutYou />
+          <ProductsSlider />
+          <BannerCTA />
+          <BlogPosts />
+          <Testimonials />
+          <ContactForm />
+          <AskForSale />
           <Footer />
         </>
       )}
