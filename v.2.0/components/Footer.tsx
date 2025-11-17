@@ -1,14 +1,20 @@
 'use client'
 
+import Image from 'next/image'
+
 export default function Footer() {
   return (
     <footer className="mt-20 py-12 px-4 border-t-2 border-[#D0D0D0] bg-white">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-[#4A4A4A] rounded-full flex items-center justify-center border-2 border-[#D0D0D0]">
-              <span className="text-white font-black text-sm">AI</span>
-            </div>
+            <Image
+              src="/logo.svg"
+              alt="Примірочна AI"
+              width={32}
+              height={32}
+              className="w-8 h-8"
+            />
             <h3 className="text-xl font-bold text-[#2C2C2C]" style={{ fontFamily: "'Playfair Display', serif" }}>
               Примірочна AI
             </h3>

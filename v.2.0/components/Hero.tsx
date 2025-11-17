@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Sparkles } from 'lucide-react'
+import Image from 'next/image'
 import MarqueeText from './MarqueeText'
 
 interface HeroProps {
@@ -31,8 +31,15 @@ export default function Hero({ onStartClick }: HeroProps) {
                 repeat: Infinity,
                 repeatType: 'reverse' as const,
               }}
+              className="mr-4"
             >
-              <Sparkles className="w-16 h-16 mr-4 text-[#4A4A4A]" />
+              <Image
+                src="/logo.svg"
+                alt="Примірочна AI Logo"
+                width={64}
+                height={64}
+                className="w-16 h-16"
+              />
             </motion.div>
             <h1 className="text-6xl md:text-7xl font-extrabold text-[#2C2C2C] leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
               Примірочна AI

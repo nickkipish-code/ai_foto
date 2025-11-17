@@ -29,9 +29,13 @@ export default function Header() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="w-10 h-10 bg-[#4A4A4A] rounded-full flex items-center justify-center border-2 border-[#D0D0D0]">
-                <span className="text-white font-black text-sm">AI</span>
-              </div>
+              <Image
+                src="/logo.svg"
+                alt="Примірочна AI"
+                width={40}
+                height={40}
+                className="w-10 h-10"
+              />
               <div>
                 <span className="text-lg font-bold text-[#2C2C2C] leading-none block" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Примірочна AI
