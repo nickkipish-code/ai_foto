@@ -1,55 +1,64 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
-import { useTheme } from '@/contexts/ThemeContext'
+import MarqueeText from './MarqueeText'
 
 interface HeroProps {
   onStartClick: () => void
 }
 
 export default function Hero({ onStartClick }: HeroProps) {
-  const { theme } = useTheme()
-  const [glitch, setGlitch] = useState(false)
-
-  useEffect(() => {
-    if (theme === 'neon') {
-      const timer = setTimeout(() => {
-        setGlitch(true)
-        setTimeout(() => setGlitch(false), 300)
-      }, 500)
-      return () => clearTimeout(timer)
-    }
-  }, [theme])
-
   return (
-    <section className="min-h-[85vh] flex items-center justify-center px-4 pt-16 relative">
+    <section className="min-h-[85vh] flex items-center justify-center px-4 pt-16 relative overflow-hidden">
+      {/* Marquee text animation background */}
+      <MarqueeText />
+      
+      {/* Gold particles background effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-[#D4AF37] rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0.2, 0.8, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="text-center max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className={glitch ? 'glitch-effect' : ''}
         >
           <div className="flex items-center justify-center mb-8">
             <motion.div
-              animate={theme === 'neon' ? {
-                filter: ['brightness(1)', 'brightness(1.5)', 'brightness(1)'],
+              animate={{
+                rotate: [0, 5, -5, 0],
                 scale: [1, 1.1, 1],
-              } : {
-                scale: [1, 1.05, 1],
               }}
               transition={{
-                duration: 2.5,
+                duration: 3,
                 repeat: Infinity,
                 repeatType: 'reverse' as const,
               }}
             >
-              <Sparkles className={`w-16 h-16 mr-4 ${theme === 'neon' ? 'text-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,1)]' : 'text-purple-500 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]'}`} />
+              <Sparkles className="w-16 h-16 mr-4 text-[#D4AF37] drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]" />
             </motion.div>
-            <h1 className={`text-6xl md:text-7xl font-extrabold gradient-text leading-tight ${theme === 'neon' ? 'font-oxanium tracking-wider drop-shadow-[0_0_20px_rgba(236,72,153,0.5)]' : 'drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]'}`}>
-              AI Примерочная
+            <h1 className="text-6xl md:text-7xl font-extrabold gradient-text leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Примірочна AI
             </h1>
           </div>
         </motion.div>
@@ -58,18 +67,18 @@ export default function Hero({ onStartClick }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`text-2xl md:text-3xl mb-6 font-semibold ${theme === 'neon' ? 'text-pink-200 font-rajdhani' : 'text-gray-200'}`}
+          className="text-2xl md:text-3xl mb-6 font-semibold text-[#BEBEBE]"
         >
-          Примеряйте одежду онлайн за секунды.
+          Примірте будь-який одяг онлайн за 30 секунд
         </motion.p>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className={`text-lg md:text-xl mb-12 max-w-2xl mx-auto ${theme === 'neon' ? 'text-gray-300' : 'text-gray-300'}`}
+          className="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-[#7A7A7A]"
         >
-          Загрузите фото — и AI покажет, как на вас выглядит любой образ.
+          Завантажте фото — штучний інтелект покаже, як на вас виглядає будь-який образ.
         </motion.p>
 
         <motion.div
@@ -79,15 +88,15 @@ export default function Hero({ onStartClick }: HeroProps) {
         >
           <motion.button
             onClick={onStartClick}
-            whileHover={{ scale: 1.08, y: -2 }}
+            whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
-            className={`px-10 py-5 rounded-2xl text-white font-bold text-xl transition-all shadow-2xl ${
-              theme === 'neon'
-                ? 'neon-button bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 shadow-[0_0_30px_rgba(236,72,153,0.6)] hover:shadow-[0_0_40px_rgba(236,72,153,0.8)]'
-                : 'bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 hover:shadow-purple-500/60 bg-size-200 bg-pos-0 hover:bg-pos-100 transition-all duration-500'
-            }`}
+            className="gold-button text-xl"
+            style={{
+              padding: '16px 40px',
+              fontSize: '20px',
+            }}
           >
-            Начать примерку →
+            Почати примірку →
           </motion.button>
         </motion.div>
       </div>

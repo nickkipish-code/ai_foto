@@ -1,0 +1,54 @@
+# ===============================================
+# VERCEL ENVIRONMENT VARIABLES
+# ===============================================
+# 
+# Скопіюйте ці змінні в Vercel Dashboard:
+# https://vercel.com/nicks-projects-98d36279/v.2.0/settings/environment-variables
+#
+# ===============================================
+
+ЗМІННА 1:
+---------
+Name: GOOGLE_CLIENT_ID
+Value: [вставте ваш Client ID з Google Console]
+Environment: Production, Preview, Development
+
+
+ЗМІННА 2:
+---------
+Name: GOOGLE_CLIENT_SECRET
+Value: [вставте ваш Client Secret з Google Console]
+Environment: Production, Preview, Development
+
+
+ЗМІННА 3:
+---------
+Name: NEXTAUTH_SECRET
+Value: bvPJ6ov5WjmELBKPz1FM/AH4y+Ufplw5qb3UoJD4SVA=
+Environment: Production, Preview, Development
+
+
+ЗМІННА 4 (для Production):
+---------------------------
+Name: NEXTAUTH_URL
+Value: https://v20-agvwk6jpl-nicks-projects-98d36279.vercel.app
+Environment: Production ONLY
+
+
+ЗМІННА 5 (вже є, але перевірте):
+---------------------------------
+Name: GOOGLE_GEMINI_API_KEY
+Value: AIzaSyALjuHSLx4gvPiJIOhWzPWn3KSJy77Rlxk
+Environment: Production, Preview, Development
+
+
+# ===============================================
+# ПІСЛЯ ДОДАВАННЯ ВСІХ ЗМІННИХ:
+# ===============================================
+# 
+# 1. Натисніть "Save" для кожної змінної
+# 2. Зачекайте 10 секунд
+# 3. Запустіть: vercel --prod
+#
+# ===============================================
+

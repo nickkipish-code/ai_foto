@@ -1,0 +1,63 @@
+# ============================================
+# ІНСТРУКЦІЯ: Створіть файл .env.local
+# ============================================
+# 
+# 1. Скопіюйте весь текст нижче
+# 2. Створіть файл .env.local в корені проекту
+# 3. Вставте текст
+# 4. Заповніть значення Google OAuth
+# 
+# ============================================
+
+# ============================================
+# 1. GOOGLE GEMINI API (вже є)
+# ============================================
+GOOGLE_GEMINI_API_KEY=AIzaSyALjuHSLx4gvPiJIOhWzPWn3KSJy77Rlxk
+
+# ============================================
+# 2. GOOGLE OAUTH (потрібно отримати)
+# ============================================
+# 
+# ЯК ОТРИМАТИ:
+# 1. Перейдіть: https://console.cloud.google.com/
+# 2. Створіть новий проект (або виберіть існуючий)
+# 3. Увімкніть Google+ API
+# 4. Перейдіть до "APIs & Services" → "Credentials"
+# 5. Натисніть "Create Credentials" → "OAuth client ID"
+# 6. Виберіть "Web application"
+# 7. Додайте Authorized redirect URIs:
+#    - http://localhost:3000/api/auth/callback/google
+#    - https://v20-agvwk6jpl-nicks-projects-98d36279.vercel.app/api/auth/callback/google
+# 8. Скопіюйте Client ID та Client Secret
+#
+GOOGLE_CLIENT_ID=ваш_client_id_тут
+GOOGLE_CLIENT_SECRET=ваш_client_secret_тут
+
+# ============================================
+# 3. NEXTAUTH (вже згенеровано)
+# ============================================
+NEXTAUTH_SECRET=bvPJ6ov5WjmELBKPz1FM/AH4y+Ufplw5qb3UoJD4SVA=
+NEXTAUTH_URL=http://localhost:3000
+
+# ============================================
+# ДЛЯ VERCEL PRODUCTION:
+# ============================================
+# Додайте ці змінні в Vercel Dashboard:
+# https://vercel.com/nicks-projects-98d36279/v.2.0/settings/environment-variables
+#
+# GOOGLE_CLIENT_ID = (той самий)
+# GOOGLE_CLIENT_SECRET = (той самий)
+# NEXTAUTH_SECRET = bvPJ6ov5WjmELBKPz1FM/AH4y+Ufplw5qb3UoJD4SVA=
+# NEXTAUTH_URL = https://v20-agvwk6jpl-nicks-projects-98d36279.vercel.app
+# GOOGLE_GEMINI_API_KEY = (вже є на Vercel)
+
+# ============================================
+# ГОТОВО!
+# ============================================
+# Після створення .env.local запустіть:
+# npm run dev
+# 
+# Для деплою на Vercel:
+# vercel --prod
+# ============================================
+

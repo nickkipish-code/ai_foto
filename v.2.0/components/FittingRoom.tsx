@@ -5,12 +5,10 @@ import { ArrowLeft, Upload, X, Image as ImageIcon, ImageOff, Link as LinkIcon, C
 import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 import ImageCanvas from './ImageCanvas'
-import { useTheme } from '@/contexts/ThemeContext'
 
 type Mode = 'text' | 'image' | 'background' | 'url'
 
 export default function FittingRoom({ onBack }: { onBack: () => void }) {
-  const { theme } = useTheme()
   const [mode, setMode] = useState<Mode>('text')
   const [personImage, setPersonImage] = useState<string | null>(null)
   const [clothingImage, setClothingImage] = useState<string | null>(null)
@@ -46,7 +44,7 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
     if (!file) return
 
     if (!file.type.startsWith('image/')) {
-      setError('Пожалуйста, загрузите изображение')
+      setError('Будь ласка, завантажте зображення')
       return
     }
 
@@ -64,7 +62,7 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
     if (!file) return
 
     if (!file.type.startsWith('image/')) {
-      setError('Пожалуйста, загрузите изображение')
+      setError('Будь ласка, завантажте зображення')
       return
     }
 
@@ -106,27 +104,27 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
 
   const handleTryOn = async () => {
     if (!personImage) {
-      setError('Пожалуйста, загрузите фото человека')
+      setError('Будь ласка, завантажте фото людини')
       return
     }
 
     if (mode === 'text' && !clothingDescription.trim()) {
-      setError('Пожалуйста, введите описание одежды')
+      setError('Будь ласка, введіть опис одягу')
       return
     }
 
     if (mode === 'image' && !clothingImage) {
-      setError('Пожалуйста, загрузите фото одежды')
+      setError('Будь ласка, завантажте фото одягу')
       return
     }
 
     if (mode === 'background' && !backgroundDescription.trim()) {
-      setError('Пожалуйста, введите описание фона')
+      setError('Будь ласка, введіть опис фону')
       return
     }
 
     if (mode === 'url' && !productUrl.trim()) {
-      setError('Пожалуйста, введите ссылку на товар')
+      setError('Будь ласка, введіть посилання на товар')
       return
     }
 
@@ -134,7 +132,7 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
       try {
         new URL(productUrl)
       } catch {
-        setError('Пожалуйста, введите корректную ссылку (начинается с http:// или https://)')
+        setError('Будь ласка, введіть коректне посилання (починається з http:// або https://)')
         return
       }
     }
@@ -188,10 +186,10 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
       setResultImage(imageUrl)
       setExtractingImages(false)
     } catch (err: any) {
-      console.error('Ошибка генерации:', err)
+      console.error('Помилка генерації:', err)
       setExtractingImages(false)
       
-      let errorMessage = 'Произошла ошибка при генерации образа'
+      let errorMessage = 'Виникла помилка при генерації образу'
       
       if (err.response) {
         const status = err.response.status
@@ -203,23 +201,23 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
             const json = JSON.parse(text)
             detail = json.detail || json.error || json.message || detail
           } catch {
-            // Используем исходное сообщение
+            // Використовуємо початкове повідомлення
           }
         }
         
         if (status === 429) {
-          errorMessage = detail || 'Превышена квота Gemini API. Пожалуйста, подождите немного и попробуйте снова.'
+          errorMessage = detail || 'Перевищено квоту Gemini API. Будь ласка, зачекайте трохи і спробуйте знову.'
         } else if (status === 500) {
-          errorMessage = detail || 'Ошибка сервера при генерации'
+          errorMessage = detail || 'Помилка сервера при генерації'
         } else if (status === 400) {
-          errorMessage = detail || 'Неверный запрос. Проверьте введенные данные'
+          errorMessage = detail || 'Невірний запит. Перевірте введені дані'
         } else {
-          errorMessage = detail || `Ошибка ${status}: ${err.response.statusText}`
+          errorMessage = detail || `Помилка ${status}: ${err.response.statusText}`
         }
       } else if (err.request) {
-        errorMessage = 'Не удалось подключиться к серверу'
+        errorMessage = 'Не вдалося підключитися до сервера'
       } else {
-        errorMessage = err.message || 'Ошибка при отправке запроса'
+        errorMessage = err.message || 'Помилка при відправці запиту'
       }
       
       setError(errorMessage)
@@ -235,26 +233,24 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
         <div className="flex items-center justify-between mb-8">
           <button
             onClick={onBack}
-            className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+            className="flex items-center space-x-2 text-[#BEBEBE] hover:text-[#D4AF37] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Назад</span>
           </button>
 
-          <div className={`flex flex-wrap gap-2 glass rounded-lg p-1 ${theme === 'neon' ? 'border border-pink-500/30' : ''}`}>
+          <div className="flex flex-wrap gap-2 glass rounded-lg p-1 border border-[#D4AF37]/20">
             <motion.button
               onClick={() => {
                 setMode('text')
                 setClothingImage(null)
                 clothingFileRef.current = null
               }}
-              whileHover={theme === 'neon' ? { scale: 1.05 } : {}}
+              whileHover={{ scale: 1.02 }}
               className={`px-4 py-2 rounded-md transition-all text-sm ${
                 mode === 'text'
-                  ? theme === 'neon'
-                    ? 'neon-button bg-black/50 text-pink-300'
-                    : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                  : 'text-gray-300 hover:text-white'
+                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#B89D2F] text-[#0C0C0D] font-semibold'
+                  : 'text-[#BEBEBE] hover:text-white'
               }`}
             >
               Фото + Текст
@@ -264,13 +260,11 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                 setMode('image')
                 setClothingDescription('')
               }}
-              whileHover={theme === 'neon' ? { scale: 1.05 } : {}}
+              whileHover={{ scale: 1.02 }}
               className={`px-4 py-2 rounded-md transition-all text-sm ${
                 mode === 'image'
-                  ? theme === 'neon'
-                    ? 'neon-button bg-black/50 text-pink-300'
-                    : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                  : 'text-gray-300 hover:text-white'
+                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#B89D2F] text-[#0C0C0D] font-semibold'
+                  : 'text-[#BEBEBE] hover:text-white'
               }`}
             >
               Фото + Фото
@@ -282,17 +276,15 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                 setClothingImage(null)
                 clothingFileRef.current = null
               }}
-              whileHover={theme === 'neon' ? { scale: 1.05 } : {}}
+              whileHover={{ scale: 1.02 }}
               className={`px-4 py-2 rounded-md transition-all text-sm flex items-center gap-2 ${
                 mode === 'background'
-                  ? theme === 'neon'
-                    ? 'neon-button bg-black/50 text-pink-300'
-                    : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                  : 'text-gray-300 hover:text-white'
+                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#B89D2F] text-[#0C0C0D] font-semibold'
+                  : 'text-[#BEBEBE] hover:text-white'
               }`}
             >
               <ImageOff className="w-4 h-4" />
-              Смена фона
+              Зміна фону
             </motion.button>
             <motion.button
               onClick={() => {
@@ -301,17 +293,15 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                 setClothingImage(null)
                 clothingFileRef.current = null
               }}
-              whileHover={theme === 'neon' ? { scale: 1.05 } : {}}
+              whileHover={{ scale: 1.02 }}
               className={`px-4 py-2 rounded-md transition-all text-sm flex items-center gap-2 ${
                 mode === 'url'
-                  ? theme === 'neon'
-                    ? 'neon-button bg-black/50 text-pink-300'
-                    : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                  : 'text-gray-300 hover:text-white'
+                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#B89D2F] text-[#0C0C0D] font-semibold'
+                  : 'text-[#BEBEBE] hover:text-white'
               }`}
             >
               <LinkIcon className="w-4 h-4" />
-              По ссылке
+              За посиланням
             </motion.button>
           </div>
         </div>
@@ -323,19 +313,15 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="glass rounded-lg p-6">
+          <div className="premium-card">
             <div className="flex items-center gap-2 mb-4">
-              <Camera className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
-              <h3 className="text-lg font-semibold">Фото человека</h3>
+              <Camera className="w-5 h-5 text-[#D4AF37]" />
+              <h3 className="text-lg font-semibold">Фото людини</h3>
             </div>
             <div
               onDrop={(e) => handleDrop(e, 'person')}
               onDragOver={(e) => e.preventDefault()}
-              className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-                theme === 'neon'
-                  ? 'border-pink-500/30 hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.3)]'
-                  : 'border-gray-600 hover:border-purple-500'
-              }`}
+              className="border-2 border-dashed border-[#D4AF37]/30 hover:border-[#D4AF37] rounded-lg p-8 text-center cursor-pointer transition-all hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]"
               onClick={() => personInputRef.current?.click()}
             >
               {personImage ? (
@@ -359,9 +345,9 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                 </div>
               ) : (
                 <div>
-                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-400 font-medium mb-1">Нажмите или перетащите фото</p>
-                  <p className="text-gray-500 text-xs">Загрузите фото в полный рост</p>
+                  <Upload className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
+                  <p className="text-[#BEBEBE] font-medium mb-1">Натисніть або перетягніть фото</p>
+                  <p className="text-[#7A7A7A] text-xs">Завантажте фото в повний зріст</p>
                 </div>
               )}
               <input
@@ -374,61 +360,53 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
             </div>
           </div>
 
-          <div className="glass rounded-lg p-6">
+          <div className="premium-card">
             <div className="flex items-center gap-2 mb-4">
               {mode === 'background' ? (
-                <ImageOff className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+                <ImageOff className="w-5 h-5 text-[#D4AF37]" />
               ) : mode === 'url' ? (
-                <LinkIcon className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+                <LinkIcon className="w-5 h-5 text-[#D4AF37]" />
               ) : (
-                <Shirt className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+                <Shirt className="w-5 h-5 text-[#D4AF37]" />
               )}
               <h3 className="text-lg font-semibold">
                 {mode === 'background' 
-                  ? 'Описание фона' 
+                  ? 'Опис фону' 
                   : mode === 'text' 
-                  ? 'Описание одежды' 
+                  ? 'Опис одягу' 
                   : mode === 'url'
-                  ? 'Ссылка на товар'
-                  : 'Фото одежды'}
+                  ? 'Посилання на товар'
+                  : 'Фото одягу'}
               </h3>
             </div>
             {mode === 'url' ? (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Ссылка на товар <span className="text-red-400">*</span>
+                  <label className="block text-sm font-medium text-[#BEBEBE] mb-2">
+                    Посилання на товар <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
                     value={productUrl}
                     onChange={(e) => setProductUrl(e.target.value)}
-                    placeholder="https://prom.ua/... или https://olx.ua/..."
-                    className={`w-full bg-black/30 border rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none ${
-                      theme === 'neon'
-                        ? 'border-pink-500/30 focus:border-pink-500 focus:shadow-[0_0_10px_rgba(236,72,153,0.3)]'
-                        : 'border-gray-600 focus:border-purple-500'
-                    }`}
+                    placeholder="https://prom.ua/... або https://olx.ua/..."
+                    className="w-full bg-[#1A1A1C] border border-[#D4AF37]/30 focus:border-[#D4AF37] rounded-lg p-3 text-white placeholder-[#7A7A7A] focus:outline-none transition-all"
                   />
                   {extractingImages && (
-                    <div className="text-sm text-yellow-400 mt-2">
-                      🔍 Извлекаем изображения товара...
+                    <div className="text-sm text-[#D4AF37] mt-2">
+                      🔍 Витягуємо зображення товару...
                     </div>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Дополнительное описание (опционально)
+                  <label className="block text-sm font-medium text-[#BEBEBE] mb-2">
+                    Додатковий опис (опціонально)
                   </label>
                   <textarea
                     value={urlDescription}
                     onChange={(e) => setUrlDescription(e.target.value)}
-                    placeholder="Например: красное платье, размер M"
-                    className={`w-full h-24 bg-black/30 border rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none resize-none ${
-                      theme === 'neon'
-                        ? 'border-pink-500/30 focus:border-pink-500 focus:shadow-[0_0_10px_rgba(236,72,153,0.3)]'
-                        : 'border-gray-600 focus:border-purple-500'
-                    }`}
+                    placeholder="Наприклад: червона сукня, розмір M"
+                    className="w-full h-24 bg-[#1A1A1C] border border-[#D4AF37]/30 focus:border-[#D4AF37] rounded-lg p-3 text-white placeholder-[#7A7A7A] focus:outline-none resize-none transition-all"
                   />
                 </div>
               </div>
@@ -437,27 +415,19 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                 <textarea
                   value={backgroundDescription}
                   onChange={(e) => setBackgroundDescription(e.target.value)}
-                  placeholder="Например: пляж с белым песком и голубым океаном, солнечный день"
-                  className={`w-full h-32 bg-black/30 border rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none resize-none ${
-                    theme === 'neon'
-                      ? 'border-pink-500/30 focus:border-pink-500 focus:shadow-[0_0_10px_rgba(236,72,153,0.3)]'
-                      : 'border-gray-600 focus:border-purple-500'
-                  }`}
+                  placeholder="Наприклад: пляж з білим піском і блакитним океаном, сонячний день"
+                  className="w-full h-32 bg-[#1A1A1C] border border-[#D4AF37]/30 focus:border-[#D4AF37] rounded-lg p-4 text-white placeholder-[#7A7A7A] focus:outline-none resize-none transition-all"
                 />
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Ракурс камеры <span className="text-yellow-400">(опционально)</span>
+                  <label className="block text-sm font-medium text-[#BEBEBE] mb-2">
+                    Ракурс камери <span className="text-[#D4AF37]">(опціонально)</span>
                   </label>
                   <input
                     type="text"
                     value={cameraAngle}
                     onChange={(e) => setCameraAngle(e.target.value)}
-                    placeholder="Например: вид сбоку, низкий ракурс, вид сверху"
-                    className={`w-full bg-black/30 border rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none ${
-                      theme === 'neon'
-                        ? 'border-pink-500/30 focus:border-pink-500 focus:shadow-[0_0_10px_rgba(236,72,153,0.3)]'
-                        : 'border-gray-600 focus:border-purple-500'
-                    }`}
+                    placeholder="Наприклад: вид збоку, низький ракурс, вид зверху"
+                    className="w-full bg-[#1A1A1C] border border-[#D4AF37]/30 focus:border-[#D4AF37] rounded-lg p-3 text-white placeholder-[#7A7A7A] focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -465,22 +435,14 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                   <textarea
                     value={clothingDescription}
                     onChange={(e) => setClothingDescription(e.target.value)}
-                    placeholder="Например: чёрная футболка oversize, синие джинсы скинни, красное платье до колен..."
-                    className={`w-full h-48 bg-black/30 border rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none resize-none ${
-                      theme === 'neon'
-                        ? 'border-pink-500/30 focus:border-pink-500 focus:shadow-[0_0_10px_rgba(236,72,153,0.3)]'
-                        : 'border-gray-600 focus:border-purple-500'
-                    }`}
+                    placeholder="Наприклад: чорна футболка oversize, сині джинси скінні, червона сукня до колін..."
+                    className="w-full h-48 bg-[#1A1A1C] border border-[#D4AF37]/30 focus:border-[#D4AF37] rounded-lg p-4 text-white placeholder-[#7A7A7A] focus:outline-none resize-none transition-all"
                   />
             ) : (
               <div
                 onDrop={(e) => handleDrop(e, 'clothing')}
                 onDragOver={(e) => e.preventDefault()}
-                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-                theme === 'neon'
-                  ? 'border-pink-500/30 hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.3)]'
-                  : 'border-gray-600 hover:border-purple-500'
-              }`}
+                className="border-2 border-dashed border-[#D4AF37]/30 hover:border-[#D4AF37] rounded-lg p-8 text-center cursor-pointer transition-all hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]"
                 onClick={() => clothingInputRef.current?.click()}
               >
                 {clothingImage ? (
@@ -497,16 +459,16 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
                         clothingFileRef.current = null
                         if (clothingInputRef.current) clothingInputRef.current.value = ''
                       }}
-                      className="absolute top-2 right-2 bg-red-500 rounded-full p-1 hover:bg-red-600"
+                      className="absolute top-2 right-2 bg-red-500 rounded-full p-1 hover:bg-red-600 transition-colors"
                     >
                       <X className="w-4 h-4 text-white" />
                     </button>
                   </div>
                 ) : (
                   <div>
-                    <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-400 font-medium mb-1">Нажмите или перетащите фото</p>
-                    <p className="text-gray-500 text-xs">Загрузите фото одежды на белом фоне</p>
+                    <ImageIcon className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
+                    <p className="text-[#BEBEBE] font-medium mb-1">Натисніть або перетягніть фото</p>
+                    <p className="text-[#7A7A7A] text-xs">Завантажте фото одягу на білому фоні</p>
                   </div>
                 )}
                 <input
@@ -520,9 +482,9 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
             )}
           </div>
 
-          <div className="glass rounded-lg p-6">
+          <div className="premium-card">
             <div className="flex items-center gap-2 mb-4">
-              <Sparkles className={`w-5 h-5 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+              <Sparkles className="w-5 h-5 text-[#D4AF37]" />
               <h3 className="text-lg font-semibold">Результат</h3>
             </div>
             <div className="h-64 md:h-auto">
@@ -535,19 +497,19 @@ export default function FittingRoom({ onBack }: { onBack: () => void }) {
           <motion.button
             onClick={handleTryOn}
             disabled={loading || extractingImages}
-            whileHover={!loading && !extractingImages && theme === 'neon' ? { scale: 1.05 } : {}}
-            whileTap={!loading && !extractingImages ? { scale: 0.95 } : {}}
-            className={`px-8 py-4 rounded-lg text-white font-semibold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
-              theme === 'neon'
-                ? 'neon-button bg-black/50 text-pink-300 hover:text-white'
-                : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:shadow-purple-500/50 transform hover:scale-105 disabled:transform-none'
-            }`}
+            whileHover={!loading && !extractingImages ? { scale: 1.05, y: -2 } : {}}
+            whileTap={!loading && !extractingImages ? { scale: 0.98 } : {}}
+            className="gold-button text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              padding: '16px 40px',
+              fontSize: '18px',
+            }}
           >
             {extractingImages 
-              ? 'Извлекаем изображения...' 
+              ? 'Витягуємо зображення...' 
               : loading 
-                ? (mode === 'background' ? 'Меняем фон...' : mode === 'url' ? 'Применяем одежду...' : 'Создаём образ...') 
-                : (mode === 'background' ? 'Сменить фон' : mode === 'url' ? 'Применить' : 'Примерить')}
+                ? (mode === 'background' ? 'Змінюємо фон...' : mode === 'url' ? 'Застосовуємо одяг...' : 'Створюємо образ...') 
+                : (mode === 'background' ? 'Змінити фон' : mode === 'url' ? 'Застосувати' : 'Примірити')}
           </motion.button>
         </div>
       </div>

@@ -1,38 +1,25 @@
 import type { Metadata } from 'next'
-import { Oxanium, Rajdhani, Space_Mono, Inter } from 'next/font/google'
+import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
-import Providers from '@/components/Providers'
+import SessionProvider from '@/components/SessionProvider'
 
-const oxanium = Oxanium({
-  subsets: ['latin'],
-  variable: '--font-oxanium',
-  display: 'swap',
-})
-
-const rajdhani = Rajdhani({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-rajdhani',
-  display: 'swap',
-})
-
-const spaceMono = Space_Mono({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-space-mono',
+const playfair = Playfair_Display({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '600', '700'],
+  variable: '--font-playfair',
   display: 'swap',
 })
 
 const inter = Inter({
-  subsets: ['latin'],
+  subsets: ['latin', 'cyrillic'],
   variable: '--font-inter',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Virtual Fitting Room v2.0 - AI примерочная',
-  description: 'Виртуальная примерка одежды с использованием Google Gemini AI - полностью на Next.js',
-  keywords: ['виртуальная примерка', 'AI', 'примерочная', 'Gemini', 'Next.js'],
+  title: 'Примірочна AI - Віртуальна примірка одягу онлайн',
+  description: 'Примірте будь-який одяг онлайн за 30 секунд. Штучний інтелект покаже, як на вас виглядає будь-який образ. Технологія Google Gemini AI.',
+  keywords: ['віртуальна примірка', 'AI', 'примірочна', 'Gemini', 'онлайн примірка', 'штучний інтелект', 'одяг онлайн'],
 }
 
 export default function RootLayout({
@@ -41,9 +28,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ru" className={`${oxanium.variable} ${rajdhani.variable} ${spaceMono.variable} ${inter.variable}`}>
+    <html lang="uk" className={`${playfair.variable} ${inter.variable}`}>
       <body>
-        <Providers>{children}</Providers>
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   )

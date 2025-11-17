@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Download, Loader2, ZoomIn, ZoomOut, RotateCw, Move, X } from 'lucide-react'
-import { useTheme } from '@/contexts/ThemeContext'
 import { motion } from 'framer-motion'
 
 interface ImageCanvasProps {
@@ -11,7 +10,6 @@ interface ImageCanvasProps {
 }
 
 export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
-  const { theme } = useTheme()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLImageElement | null>(null)
@@ -49,7 +47,7 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
     }
     
     img.onerror = () => {
-      console.error('Ошибка загрузки изображения')
+      console.error('Помилка завантаження зображення')
       setImageLoaded(false)
     }
     
@@ -168,10 +166,10 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
   if (loading) {
     const [loadingStep, setLoadingStep] = useState(0)
     const steps = [
-      '✨ Генерируем ваш образ...',
-      '🤖 AI подбирает освещение...',
-      '👗 Создаём примерку...',
-      '🎨 Финальная обработка...'
+      '✨ Генеруємо ваш образ...',
+      '🤖 AI підбирає освітлення...',
+      '👗 Створюємо примірку...',
+      '🎨 Фінальна обробка...'
     ]
 
     useEffect(() => {
@@ -182,11 +180,7 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
     }, [])
 
     return (
-      <div className={`w-full h-full flex items-center justify-center glass rounded-lg border-2 ${
-        theme === 'neon' 
-          ? 'border-pink-500/50 bg-gradient-to-br from-pink-500/10 to-purple-500/10' 
-          : 'border-purple-500/50 bg-gradient-to-br from-purple-500/10 to-pink-500/10'
-      }`}>
+      <div className="w-full h-full flex items-center justify-center glass rounded-lg border-2 border-[#D4AF37]/50 bg-gradient-to-br from-[#D4AF37]/10 to-[#B89D2F]/10">
         <div className="text-center p-8">
           <motion.div
             animate={{
@@ -199,18 +193,14 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
               ease: 'easeInOut',
             }}
           >
-            <div className={`w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center relative ${
-              theme === 'neon'
-                ? 'bg-gradient-to-br from-pink-500/30 to-purple-500/30 shadow-[0_0_50px_rgba(236,72,153,0.5)]'
-                : 'bg-gradient-to-br from-purple-500/30 to-pink-500/30 shadow-2xl'
-            }`}>
-              <Loader2 className={`w-12 h-12 animate-spin ${theme === 'neon' ? 'text-pink-300' : 'text-purple-300'}`} />
+            <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center relative bg-gradient-to-br from-[#D4AF37]/30 to-[#B89D2F]/30 shadow-[0_0_50px_rgba(212,175,55,0.5)]">
+              <Loader2 className="w-12 h-12 animate-spin text-[#D4AF37]" />
               
               <motion.div
                 className="absolute inset-0 rounded-full border-4 border-transparent"
                 style={{
-                  borderTopColor: theme === 'neon' ? '#ec4899' : '#a855f7',
-                  borderRightColor: theme === 'neon' ? '#a855f7' : '#ec4899',
+                  borderTopColor: '#D4AF37',
+                  borderRightColor: '#E5C158',
                 }}
                 animate={{
                   rotate: [0, -360],
@@ -229,12 +219,12 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`text-lg font-semibold mb-2 ${theme === 'neon' ? 'text-pink-300' : 'text-purple-300'}`}
+            className="text-lg font-semibold mb-2 text-[#D4AF37]"
           >
             {steps[loadingStep]}
           </motion.p>
-          <p className="text-gray-400 text-sm">
-            Это может занять до 30 секунд
+          <p className="text-[#BEBEBE] text-sm">
+            Це може зайняти до 30 секунд
           </p>
         </div>
       </div>
@@ -243,11 +233,7 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
 
   if (!imageUrl) {
     return (
-      <div className={`w-full h-full flex items-center justify-center glass rounded-lg border-2 border-dashed ${
-        theme === 'neon' 
-          ? 'border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-purple-500/5' 
-          : 'border-purple-500/30 bg-gradient-to-br from-purple-500/5 to-pink-500/5'
-      }`}>
+      <div className="w-full h-full flex items-center justify-center glass rounded-lg border-2 border-dashed border-[#D4AF37]/30 bg-gradient-to-br from-[#D4AF37]/5 to-[#B89D2F]/5">
         <div className="text-center p-8">
           <motion.div
             animate={{
@@ -260,19 +246,15 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
               repeatType: 'reverse' as const,
             }}
           >
-            <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center ${
-              theme === 'neon'
-                ? 'bg-gradient-to-br from-pink-500/20 to-purple-500/20 shadow-[0_0_30px_rgba(236,72,153,0.3)]'
-                : 'bg-gradient-to-br from-purple-500/20 to-pink-500/20'
-            }`}>
-              <Loader2 className={`w-10 h-10 ${theme === 'neon' ? 'text-pink-400' : 'text-purple-400'}`} />
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#D4AF37]/20 to-[#B89D2F]/20 shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+              <Loader2 className="w-10 h-10 text-[#D4AF37]" />
             </div>
           </motion.div>
-          <p className={`text-lg font-semibold mb-2 ${theme === 'neon' ? 'text-pink-300' : 'text-gray-200'}`}>
-            ✨ Ваш примерочный результат
+          <p className="text-lg font-semibold mb-2 text-[#D4AF37]">
+            ✨ Ваш результат примірки
           </p>
-          <p className="text-gray-400 text-sm">
-            появится здесь после генерации
+          <p className="text-[#BEBEBE] text-sm">
+            з'явиться тут після генерації
           </p>
         </div>
       </div>
@@ -281,23 +263,19 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
 
   return (
     <div className="w-full h-full glass rounded-lg p-4 flex flex-col">
-      <div className={`flex items-center justify-between mb-4 p-2 rounded-lg ${
-        theme === 'neon' 
-          ? 'bg-black/30 border border-pink-500/30' 
-          : 'bg-black/20'
-      }`}>
+      <div className="flex items-center justify-between mb-4 p-2 rounded-lg bg-[#1A1A1C] border border-[#D4AF37]/30">
         <div className="flex items-center gap-2">
           <motion.button
             onClick={() => handleZoom(-0.1)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="p-2 rounded text-gray-400 hover:text-white transition-all"
-            title="Уменьшить"
+            className="p-2 rounded text-[#BEBEBE] hover:text-[#D4AF37] transition-all"
+            title="Зменшити"
           >
             <ZoomOut className="w-4 h-4" />
           </motion.button>
           
-          <span className="text-sm text-gray-400 min-w-[3rem] text-center">
+          <span className="text-sm text-[#BEBEBE] min-w-[3rem] text-center">
             {Math.round(scale * 100)}%
           </span>
           
@@ -305,8 +283,8 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
             onClick={() => handleZoom(0.1)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="p-2 rounded text-gray-400 hover:text-white transition-all"
-            title="Увеличить"
+            className="p-2 rounded text-[#BEBEBE] hover:text-[#D4AF37] transition-all"
+            title="Збільшити"
           >
             <ZoomIn className="w-4 h-4" />
           </motion.button>
@@ -315,8 +293,8 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
             onClick={handleRotate}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="p-2 rounded text-gray-400 hover:text-white transition-all"
-            title="Повернуть на 90°"
+            className="p-2 rounded text-[#BEBEBE] hover:text-[#D4AF37] transition-all"
+            title="Повернути на 90°"
           >
             <RotateCw className="w-4 h-4" />
           </motion.button>
@@ -325,8 +303,8 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
             onClick={handleReset}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="p-2 rounded text-gray-400 hover:text-white transition-all"
-            title="Сбросить"
+            className="p-2 rounded text-[#BEBEBE] hover:text-[#D4AF37] transition-all"
+            title="Скинути"
           >
             <X className="w-4 h-4" />
           </motion.button>
@@ -337,21 +315,17 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
           disabled={downloading}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 disabled:opacity-50 ${
-            theme === 'neon'
-              ? 'bg-pink-500/30 text-pink-300 hover:bg-pink-500/50'
-              : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-lg hover:shadow-purple-500/50'
-          }`}
+          className="px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 disabled:opacity-50 bg-gradient-to-r from-[#D4AF37] to-[#B89D2F] text-[#0C0C0D] hover:shadow-lg hover:shadow-[#D4AF37]/50"
         >
           {downloading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Скачивание...</span>
+              <span>Завантаження...</span>
             </>
           ) : (
             <>
               <Download className="w-4 h-4" />
-              <span>Скачать</span>
+              <span>Завантажити</span>
             </>
           )}
         </motion.button>
@@ -359,7 +333,7 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
 
       <div
         ref={containerRef}
-        className="flex-1 relative rounded-lg overflow-hidden border border-gray-700 bg-gray-900 cursor-move"
+        className="flex-1 relative rounded-lg overflow-hidden border border-[#D4AF37]/30 bg-[#0C0C0D] cursor-move"
         onWheel={(e) => {
           e.preventDefault()
           const delta = e.deltaY > 0 ? -0.1 : 0.1
@@ -376,8 +350,8 @@ export default function ImageCanvas({ imageUrl, loading }: ImageCanvasProps) {
           style={{ touchAction: 'none' }}
         />
         
-        <div className="absolute bottom-4 left-4 text-xs text-gray-500 bg-black/50 px-2 py-1 rounded">
-          Перетащите для перемещения • Колесо мыши для масштабирования
+        <div className="absolute bottom-4 left-4 text-xs text-[#7A7A7A] bg-black/70 px-3 py-2 rounded-lg border border-[#D4AF37]/20">
+          Перетягніть для переміщення • Колесо миші для масштабування
         </div>
       </div>
     </div>
