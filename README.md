@@ -119,6 +119,7 @@ Primer/
 ### Frontend
 - **Next.js 14** - React фреймворк (App Router)
 - **TypeScript** - строгая типизация
+- **NextAuth.js** - аутентификация через Google OAuth
 - **Tailwind CSS** - utility-first CSS
 - **Framer Motion** - анимации
 - **Lucide React** - иконки
@@ -175,10 +176,21 @@ Image to Image генерация
 GEMINI_API_KEY=your_key_here
 ```
 
-**frontend (опционально):**
+**frontend/.env.local:**
 ```
+# NextAuth.js Configuration
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key-here
+
+# Google OAuth Credentials
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# API URL (опционально)
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
+
+> **Примечание:** Для настройки Google OAuth см. [GOOGLE_AUTH_SETUP.md](./frontend/GOOGLE_AUTH_SETUP.md)
 
 ## 🐛 Troubleshooting
 
@@ -201,9 +213,19 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 - Проверьте логи backend
 - Fallback: возвращается оригинал с watermark
 
+## 🔐 Аутентификация
+
+Приложение поддерживает регистрацию и авторизацию через Google OAuth.
+
+**Быстрая настройка:**
+1. Создайте OAuth приложение в [Google Cloud Console](https://console.cloud.google.com/)
+2. Настройте переменные окружения в `frontend/.env.local`
+3. Следуйте инструкциям в [GOOGLE_AUTH_SETUP.md](./frontend/GOOGLE_AUTH_SETUP.md)
+
 ## 📚 Дополнительная документация
 
 - [GEMINI_2.5_SETUP.md](./GEMINI_2.5_SETUP.md) - Детальная настройка Gemini
+- [GOOGLE_AUTH_SETUP.md](./frontend/GOOGLE_AUTH_SETUP.md) - Настройка Google OAuth
 - [GEMINI_READY.txt](./GEMINI_READY.txt) - Сводка и инструкции
 - [START_HERE.md](./START_HERE.md) - Быстрый старт
 - [QUICKSTART.md](./QUICKSTART.md) - Краткая инструкция

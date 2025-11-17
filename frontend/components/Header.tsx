@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import AuthButton from './AuthButton'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -39,6 +40,11 @@ export default function Header() {
             ))}
           </nav>
 
+          {/* Auth Button */}
+          <div className="hidden md:block">
+            <AuthButton />
+          </div>
+
           {/* Mobile Menu Button */}
           <button
             className="md:hidden text-white"
@@ -67,6 +73,9 @@ export default function Header() {
                   {item.label}
                 </a>
               ))}
+              <div className="pt-2">
+                <AuthButton />
+              </div>
             </motion.nav>
           )}
         </AnimatePresence>
